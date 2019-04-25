@@ -864,8 +864,13 @@ void LocalMapping::AddToLocalWindow(KeyFrame* pKF)
         KeyFrame* pKF0 = mlLocalKeyFrames.front();
         while(mlLocalKeyFrames.size() < mnLocalWindowSize && pKF0->GetPrevKeyFrame()!=NULL)
         {
-            pKF0 = pKF0->GetPrevKeyFrame();
-            mlLocalKeyFrames.push_front(pKF0);
+            if (pKF0->GetPrevKeyFrame()) {
+                pKF0 = pKF0->GetPrevKeyFrame();
+                mlLocalKeyFrames.push_front(pKF0);
+            } else {
+                mlLocalKeyFrames.push_front(pKF0);
+                pKF0 = pKF0->GetPrevKeyFrame();
+            }
         }
     }
 }

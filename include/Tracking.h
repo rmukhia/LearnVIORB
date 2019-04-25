@@ -24,7 +24,7 @@
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/features2d/features2d.hpp>
-
+#include <Eigen/StdVector>
 #include"Viewer.h"
 #include"FrameDrawer.h"
 #include"Map.h"
@@ -63,7 +63,8 @@ public:
     bool mbRelocBiasPrepare;
     void RecomputeIMUBiasAndCurrentNavstate(NavState& nscur);
     // 20 Frames are used to compute bias
-    vector<Frame> mv20FramesReloc;
+    // vector<Frame> mv20FramesReloc;
+    vector<Frame, Eigen::aligned_allocator<Frame> > mv20FramesReloc;
 
     // Predict the NavState of Current Frame by IMU
     void PredictNavStateByIMU(bool bMapUpdated);
